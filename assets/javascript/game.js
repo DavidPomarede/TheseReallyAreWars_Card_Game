@@ -98,11 +98,11 @@ $(".luke2").on("click", function() {
  
         if ((cardsLeft <= 3) && (!isEnemyClicked)){
             var characterCard2 = $("<button>");
-            characterCard2.attr("class", "col-md-3 text-center luke maul");
+            characterCard2.attr("class", "col-md-3 text-center luke3 maul");
             $("#arena2").append(characterCard2);
 
             var cardName2 = $("<div>");
-            characterCard2.attr("class", "col-md-3 text-center luke2 maul");
+            characterCard2.attr("class", "col-md-3 text-center luke4 maul");
             characterCard2.attr("id", cardID.number);
             cardName2.text(cardID.name);
             characterCard2.append(cardName2);
@@ -124,13 +124,15 @@ $(".luke2").on("click", function() {
             cardsLeft--;
             isEnemyClicked = true;
             $("#enemies").text(enemyHp);
+
+            $(characterCard2).attr("class", "col-md-3 text-center luke4 maul bg-danger");
         } else {
     
             var characterCard3 = $("<button>");
-            characterCard3.attr("class", "col-md-3 text-center luke obi");
+            characterCard3.attr("class", "col-md-3 text-center luke3 obi");
             $("#arena1").append(characterCard3);
             var cardName3 = $("<div>");
-            characterCard3.attr("class", "col-md-3 text-center luke2 obi");
+            characterCard3.attr("class", "col-md-3 text-center luke4 obi");
             characterCard3.attr("id", cardID.number);
             cardName3.text(cardID.name);
             characterCard3.append(cardName3);
@@ -148,6 +150,11 @@ $(".luke2").on("click", function() {
             $(cardIDID).hide();
             cardsLeft--;
             $("#defender").text(yourHp);
+            $(".luke").attr("class", "bg-danger");
+            $(".luke2").attr("class", "bg-danger");
+
+
+
         }
 
 

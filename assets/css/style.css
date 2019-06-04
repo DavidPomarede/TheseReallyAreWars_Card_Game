@@ -17,6 +17,18 @@ img {
     height: 12rem;
 }
 
+.luke3 {
+    background-color: black;
+    border-color: green;
+    border-width: 2px;
+}
+
+.luke4 {
+    height: 12rem;
+}
+
+
 div {
-    color: red;
+    color: aqua;
+    font-weight: bold;
 }
