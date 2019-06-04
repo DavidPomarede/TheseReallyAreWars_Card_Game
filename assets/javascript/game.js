@@ -177,8 +177,10 @@ $(".luke2").on("click", function() {
             yourHp = yourHp - enemyAttk;
             yourAttk = yourAttk + 8;
             console.log(yourAttk);
-            $("#defender").text(yourHp);
-            $("#enemies").text(enemyHp);
+            // $("#defender").text(yourHp);
+            // $("#enemies").text(enemyHp);
+            $("#enemyHpDisplay").text(enemyHp);
+            $("#yourHpDisplay").text(yourHp);
 
             if (yourHp <= 0) {
                 alert("you lost!");
