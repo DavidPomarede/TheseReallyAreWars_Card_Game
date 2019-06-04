@@ -45,32 +45,43 @@ function game() {
 
     var card;
 
+    var shuffle = function() {
+        for(var i = 0; i < chars.length; i++) {
 
-    for(var i = 0; i < chars.length; i++) {
+            card = $("<button>");
+            card.attr("class", "col-md-2 text-center luke");
+            $("#rowCardSlot").append(card);
+            var cardName = $("<div>");
+            card.attr("class", "col-md-2 text-center luke2");
+            card.attr("id", characterList[0][i].number)
+            cardName.text(characterList[0][i].name);
+            card.append(cardName);
+            var cardImg = $("<img>");
+            cardImg.attr("src", characterList[0][i].img);
+            card.append(cardImg);
+            var cardHp = $("<div>");
+            cardHp.text(characterList[0][i].hp);
+            card.append(cardHp);
+            $(".luke").show();
+            $(".luke2").show();
+        }
+    };
 
-        card = $("<button>");
-        card.attr("class", "col-md-2 text-center luke");
-        $("#rowCardSlot").append(card);
-        var cardName = $("<div>");
-        card.attr("class", "col-md-2 text-center luke2");
-        card.attr("id", characterList[0][i].number)
-        cardName.text(characterList[0][i].name);
-        card.append(cardName);
-        var cardImg = $("<img>");
-        cardImg.attr("src", characterList[0][i].img);
-        card.append(cardImg);
-        var cardHp = $("<div>");
-        cardHp.text(characterList[0][i].hp);
-        card.append(cardHp);
-    }
+    shuffle();
 
 // variable that stores wins/losses
     var wins;
     var losses;
 
 // variable that stores HP
-    var cardsLeft = [0,1,2,3];
+    var cardsLeft = 4;
     var characterCard;
+
+    var yourHp;
+    var yourAttk;
+    var enemyHp;
+    var enemyAttk;
+    var isEnemyClicked = false;
 
 // variable that sotres enemyHP
 
@@ -87,35 +98,121 @@ $(".luke2").on("click", function() {
 
     var cardID = characterList[0][this.id];
     characterCard = cardID;
-    cardsLeft -= cardID.number;
-
-    if (cardsLeft !== -1) {
-        if ()
 
 
+ 
+        if ((cardsLeft <= 3) && (!isEnemyClicked)){
+            var characterCard = $("<button>");
+            characterCard.attr("class", "col-md-2 text-center luke obi");
+            $("#arena2").append(characterCard);
+            var cardName = $("<div>");
+            characterCard.attr("class", "col-md-2 text-center luke2 obi");
+            characterCard.attr("id", cardID.number)
+            cardName.text(cardID.name);
+            characterCard.append(cardName);
+            var cardImg = $("<img>");
+            cardImg.attr("src", cardID.img);
+            characterCard.append(cardImg);
+            var cardHp = $("<div>");
+            cardHp.text(cardID.hp);
+            characterCard.append(cardHp);
+            enemyHp = cardID.hp;
+            enemyAttk = cardID.att;
+            var cardIDID = "#" + characterList[0][this.id].number;
+            $(cardIDID).hide();
+            cardsLeft--;
+            isEnemyClicked = true;
+            $("#enemies").text(enemyHp);
+        } else {
+    
+            var characterCard = $("<button>");
+            characterCard.attr("class", "col-md-2 text-center luke obi");
+            $("#arena1").append(characterCard);
+            var cardName = $("<div>");
+            characterCard.attr("class", "col-md-2 text-center luke2 obi");
+            characterCard.attr("id", cardID.number)
+            cardName.text(cardID.name);
+            characterCard.append(cardName);
+            var cardImg = $("<img>");
+            cardImg.attr("src", cardID.img);
+            characterCard.append(cardImg);
+            var cardHp = $("<div>");
+            cardHp.text(cardID.hp);
+            characterCard.append(cardHp);
+            yourHp = cardID.hp;
+            yourAttk = cardID.att;
+            var cardIDID = "#" + characterList[0][this.id].number;
+            $(cardIDID).hide();
+            cardsLeft--;
+            $("#defender").text(yourHp);
+        }
+
+
+});
+    $("#buttonAttk").on("click", function() {
+        if ((enemyHp !== 0) && (yourHp !== 0)) {
+            enemyHp = enemyHp - yourAttk;
+            yourHp = yourHp - enemyAttk;
+            yourAttk = yourAttk + 8;
+            console.log(yourAttk);
+            $("#defender").text(yourHp);
+            $("#enemies").text(enemyHp);
+
+            if ((enemyHp === 0 ) && (cardsLeft === 0)) {
+                isEnemyClicked = false;
+                wins++;
+                $("#winsDisplay").text("Wins: " + wins);
+                alert("Well done! You Win");
+                $(".obi").hide();
+                game();
+            } 
+
+        } 
+        
+        if (yourHp < 0) {
+            alert("you lost!");
+            losses++;
+            $("#lossesDisplay").text(losses);
+            $(".obi").hide();
+            game();
+
+        } 
+
+        if (enemyHp < 0) {
+            enemyHp = 0;
+            $("#enemies").text(enemyHp);
+            isEnemyClicked = false;
+            console.log("you defeated the enemy")
+        }
+        console.log(enemyHp);
+
+
+    });
+
+    $("#reset").on("click", function() {
+        window.location.reload();
+    });
 
 
 
-    }
+    // var characterCard = $("<button>");
+    // characterCard.attr("class", "col-md-2 text-center luke");
+    // $("#arena1").append(characterCard);
+    // var cardName = $("<div>");
+    // characterCard.attr("class", "col-md-2 text-center luke2");
+    // characterCard.attr("id", cardID.number)
+    // cardName.text(cardID.name);
+    // characterCard.append(cardName);
+    // var cardImg = $("<img>");
+    // cardImg.attr("src", cardID.img);
+    // characterCard.append(cardImg);
+    // var cardHp = $("<div>");
+    // cardHp.text(cardID.hp);
+    // characterCard.append(cardHp);
 
-    var characterCard = $("<button>");
-    characterCard.attr("class", "col-md-2 text-center luke");
-    $("#arena1").append(characterCard);
-    var cardName = $("<div>");
-    characterCard.attr("class", "col-md-2 text-center luke2");
-    characterCard.attr("id", cardID.number)
-    cardName.text(cardID.name);
-    characterCard.append(cardName);
-    var cardImg = $("<img>");
-    cardImg.attr("src", cardID.img);
-    characterCard.append(cardImg);
-    var cardHp = $("<div>");
-    cardHp.text(cardID.hp);
-    characterCard.append(cardHp);
-
-    var cardIDID = "#" + characterList[0][this.id].number;
-    $(cardIDID).hide();
-    console.log(cardID.number);
+    // var cardIDID = "#" + characterList[0][this.id].number;
+    // $(cardIDID).hide();
+    // console.log(cardID.number);
 
 
 
@@ -142,7 +239,7 @@ $(".luke2").on("click", function() {
     // Again you can see we use that find, and once its found we append the item
     // $("#display").append(fridgeMagnet);
 
-  });
+
 
 
 
