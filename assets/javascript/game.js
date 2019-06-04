@@ -1,10 +1,3 @@
-var characters = $("#characters");
-var enemies = $("#enemies");
-var fightSection = $("#fightSection");
-var button = $("#button");
-var defender = $("#defender");
-var reset = $("#reset");
-
 document.body.style.backgroundImage = "url('assets/images/background.jpg')";
 
 var characterList = [{
@@ -50,10 +43,10 @@ function game() {
         for(var i = 0; i < chars.length; i++) {
 
             card = $("<button>");
-            card.attr("class", "col-md-2 text-center luke");
+            card.attr("class", "col-md-3 text-center luke");
             $("#rowCardSlot").append(card);
             var cardName = $("<div>");
-            card.attr("class", "col-md-2 text-center luke2");
+            card.attr("class", "col-md-3 text-center luke2");
             card.attr("id", characterList[0][i].number)
             cardName.text(characterList[0][i].name);
             card.append(cardName);
@@ -71,8 +64,8 @@ function game() {
     shuffle();
 
 // variable that stores wins/losses
-    var wins;
-    var losses;
+    var wins = 0;
+    var losses = 0;
 
 // variable that stores HP
     var cardsLeft = 4;
@@ -83,6 +76,7 @@ function game() {
     var enemyHp;
     var enemyAttk;
     var isEnemyClicked = false;
+    var enemyTicker=3;
 
 // variable that sotres enemyHP
 
@@ -104,11 +98,11 @@ $(".luke2").on("click", function() {
  
         if ((cardsLeft <= 3) && (!isEnemyClicked)){
             var characterCard2 = $("<button>");
-            characterCard2.attr("class", "col-md-2 text-center luke maul");
+            characterCard2.attr("class", "col-md-3 text-center luke maul");
             $("#arena2").append(characterCard2);
 
             var cardName2 = $("<div>");
-            characterCard2.attr("class", "col-md-2 text-center luke2 maul");
+            characterCard2.attr("class", "col-md-3 text-center luke2 maul");
             characterCard2.attr("id", cardID.number);
             cardName2.text(cardID.name);
             characterCard2.append(cardName2);
@@ -133,10 +127,10 @@ $(".luke2").on("click", function() {
         } else {
     
             var characterCard3 = $("<button>");
-            characterCard3.attr("class", "col-md-2 text-center luke obi");
+            characterCard3.attr("class", "col-md-3 text-center luke obi");
             $("#arena1").append(characterCard3);
             var cardName3 = $("<div>");
-            characterCard3.attr("class", "col-md-2 text-center luke2 obi");
+            characterCard3.attr("class", "col-md-3 text-center luke2 obi");
             characterCard3.attr("id", cardID.number);
             cardName3.text(cardID.name);
             characterCard3.append(cardName3);
@@ -159,6 +153,18 @@ $(".luke2").on("click", function() {
 
 });
     $("#buttonAttk").on("click", function() {
+        if (yourHp < 0) {
+            alert("you lost!");
+            losses++;
+            $(".lossesDisplay").text(losses);
+            $(".obi").attr("class","d-none");
+            // game();
+
+        } 
+
+
+
+
         if ((enemyHp !== 0) && (yourHp !== 0)) {
             enemyHp = enemyHp - yourAttk;
             yourHp = yourHp - enemyAttk;
@@ -166,36 +172,61 @@ $(".luke2").on("click", function() {
             console.log(yourAttk);
             $("#defender").text(yourHp);
             $("#enemies").text(enemyHp);
+
+            if (yourHp <= 0) {
+                alert("you lost!");
+                losses++;
+                $(".lossesDisplay").text(losses);
+                $(".obi").attr("class","d-none");
+                // game();
+            }
             // $("#enemyHpDisplay").text(enemyHp);
             // $("#yourHpDisplay").text(yourHp);
 
-
-            if ((enemyHp === 0 ) && (cardsLeft === 0)) {
+            if ((enemyHp < 0 ) && (cardsLeft < 0)) {
                 isEnemyClicked = false;
                 wins++;
-                $("#winsDisplay").text("Wins: " + wins);
+                $(".winsDisplay").text("Wins: " + wins);
                 alert("Well done! You Win");
-                $(".obi").css("display","none");
+                $(".obi").attr("class","d-none");
                 game();
             } 
 
-        } 
-        
-        if (yourHp < 0) {
-            alert("you lost!");
-            losses++;
-            $("#lossesDisplay").text(losses);
-            $(".obi").css("display","none");
-            game();
+            if (enemyHp <= 0) {
+                enemyHp = 0;
+                $("#enemies").text(enemyHp);
+                $(".maul").attr("class", "d-none");
+                isEnemyClicked = false;
+                console.log("you defeated the enemy");
+                enemyTicker--;
+                if (enemyTicker === 0) {
+                    wins++;
+                    $(".winsDisplay").text("Wins: " + wins);
+                    alert("Congratulations, young padawan! You Won!");
+                    // game();
+                } 
+            }
 
-        } 
+        }
+
+        
+        
+
+ 
 
         if (enemyHp < 0) {
             enemyHp = 0;
             $("#enemies").text(enemyHp);
             $(".maul").attr("class", "d-none");
             isEnemyClicked = false;
-            console.log("you defeated the enemy")
+            console.log("you defeated the enemy");
+            enemyTicker--;
+            if (enemyTicker === 0) {
+                wins++;
+                $(".winsDisplay").text("Wins: " + wins);
+                alert("Congratulations, young padawan! You Won!");
+                // game();
+            }        
         }
         console.log(enemyHp);
 
@@ -205,78 +236,6 @@ $(".luke2").on("click", function() {
     $("#reset").on("click", function() {
         window.location.reload();
     });
-
-
-
-    // var characterCard = $("<button>");
-    // characterCard.attr("class", "col-md-2 text-center luke");
-    // $("#arena1").append(characterCard);
-    // var cardName = $("<div>");
-    // characterCard.attr("class", "col-md-2 text-center luke2");
-    // characterCard.attr("id", cardID.number)
-    // cardName.text(cardID.name);
-    // characterCard.append(cardName);
-    // var cardImg = $("<img>");
-    // cardImg.attr("src", cardID.img);
-    // characterCard.append(cardImg);
-    // var cardHp = $("<div>");
-    // cardHp.text(cardID.hp);
-    // characterCard.append(cardHp);
-
-    // var cardIDID = "#" + characterList[0][this.id].number;
-    // $(cardIDID).hide();
-    // console.log(cardID.number);
-
-
-
-
-
-
-
-
-    // console.log(chosenCard);
-    // Inside the on-click event...
-
-    // 8. Create a variable called "fridgeMagnet" and set the variable equal to a new div.
-    // var fridgeMagnet = $("<div>");
-
-    // 9. Give each "fridgeMagnet" the following classes: "letter fridge-color".
-    // fridgeMagnet.addClass("letter fridge-color");
-
-    // 10. Then chain the following code onto the "fridgeMagnet" variable: .text($(this).attr("data-letter"))
-    // attr acts as both a setter and a getter for attributes depending on whether we supply one argument or two
-    // NOTE: There IS a $(data) jQuery method, but it doesn't do what you'd expect. So just use attr.
-    // fridgeMagnet.text($(this).attr(characterList[0][i].hp));
-
-    // 11. Lastly append the fridgeMagnet variable to the "#display" div (provided);
-    // Again you can see we use that find, and once its found we append the item
-    // $("#display").append(fridgeMagnet);
-
-
-
-
-
-// move that card to the character slot
-// collect a click from the card list
-// move that card to the enemy slot
-
-// attack button click
-// function minus hp by the attack number on charCard
-// minus hp by the attack number on enemyCard
-
-// when hp = zero, make the card invisible
-// make the card list clickable
-// when hp of enemy is zero and the card list is empty, add a win, start over.
-// when hp of character is zero, add a loss, start over.
-
-
-
-
-
-
-
-
-
 
 
 }
