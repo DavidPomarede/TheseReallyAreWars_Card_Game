@@ -103,46 +103,51 @@ $(".luke2").on("click", function() {
 
  
         if ((cardsLeft <= 3) && (!isEnemyClicked)){
-            var characterCard = $("<button>");
-            characterCard.attr("class", "col-md-2 text-center luke obi");
-            $("#arena2").append(characterCard);
-            var cardName = $("<div>");
-            characterCard.attr("class", "col-md-2 text-center luke2 obi");
-            characterCard.attr("id", cardID.number)
-            cardName.text(cardID.name);
-            characterCard.append(cardName);
+            var characterCard2 = $("<button>");
+            characterCard2.attr("class", "col-md-2 text-center luke maul");
+            $("#arena2").append(characterCard2);
+
+            var cardName2 = $("<div>");
+            characterCard2.attr("class", "col-md-2 text-center luke2 maul");
+            characterCard2.attr("id", cardID.number);
+            cardName2.text(cardID.name);
+            characterCard2.append(cardName2);
+
             var cardImg = $("<img>");
             cardImg.attr("src", cardID.img);
-            characterCard.append(cardImg);
+            characterCard2.append(cardImg);
+
             var cardHp = $("<div>");
             enemyHp = cardID.hp;
             cardHp.text(enemyHp);
-            characterCard.append(cardHp);
+            characterCard2.append(cardHp);
             cardHp.attr("id", "enemyHpDisplay");
             enemyAttk = cardID.att;
+
             var cardIDID = "#" + characterList[0][this.id].number;
             $(cardIDID).hide();
+
             cardsLeft--;
             isEnemyClicked = true;
             $("#enemies").text(enemyHp);
         } else {
     
-            var characterCard = $("<button>");
-            characterCard.attr("class", "col-md-2 text-center luke obi");
-            $("#arena1").append(characterCard);
-            var cardName = $("<div>");
-            characterCard.attr("class", "col-md-2 text-center luke2 obi");
-            characterCard.attr("id", cardID.number)
-            cardName.text(cardID.name);
-            characterCard.append(cardName);
+            var characterCard3 = $("<button>");
+            characterCard3.attr("class", "col-md-2 text-center luke obi");
+            $("#arena1").append(characterCard3);
+            var cardName3 = $("<div>");
+            characterCard3.attr("class", "col-md-2 text-center luke2 obi");
+            characterCard3.attr("id", cardID.number);
+            cardName3.text(cardID.name);
+            characterCard3.append(cardName3);
             var cardImg = $("<img>");
             cardImg.attr("src", cardID.img);
-            characterCard.append(cardImg);
+            characterCard3.append(cardImg);
             var cardHp = $("<div>");
             yourHp = cardID.hp;
             cardHp.text(yourHp);
             cardHp.attr("id", "yourHpDisplay");
-            characterCard.append(cardHp);
+            characterCard3.append(cardHp);
 
             yourAttk = cardID.att;
             var cardIDID = "#" + characterList[0][this.id].number;
@@ -164,12 +169,13 @@ $(".luke2").on("click", function() {
             // $("#enemyHpDisplay").text(enemyHp);
             // $("#yourHpDisplay").text(yourHp);
 
+
             if ((enemyHp === 0 ) && (cardsLeft === 0)) {
                 isEnemyClicked = false;
                 wins++;
                 $("#winsDisplay").text("Wins: " + wins);
                 alert("Well done! You Win");
-                $(".obi").hide();
+                $(".obi").css("display","none");
                 game();
             } 
 
@@ -179,7 +185,7 @@ $(".luke2").on("click", function() {
             alert("you lost!");
             losses++;
             $("#lossesDisplay").text(losses);
-            $(".obi").hide();
+            $(".obi").css("display","none");
             game();
 
         } 
@@ -187,6 +193,7 @@ $(".luke2").on("click", function() {
         if (enemyHp < 0) {
             enemyHp = 0;
             $("#enemies").text(enemyHp);
+            $(".maul").attr("class", "d-none");
             isEnemyClicked = false;
             console.log("you defeated the enemy")
         }
