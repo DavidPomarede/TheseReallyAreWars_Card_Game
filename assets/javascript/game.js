@@ -5,6 +5,7 @@ var button = $("#button");
 var defender = $("#defender");
 var reset = $("#reset");
 
+document.body.style.backgroundImage = "url('assets/images/background.jpg')";
 
 var characterList = [{
     0: {
@@ -114,9 +115,10 @@ $(".luke2").on("click", function() {
             cardImg.attr("src", cardID.img);
             characterCard.append(cardImg);
             var cardHp = $("<div>");
-            cardHp.text(cardID.hp);
-            characterCard.append(cardHp);
             enemyHp = cardID.hp;
+            cardHp.text(enemyHp);
+            characterCard.append(cardHp);
+            cardHp.attr("id", "enemyHpDisplay");
             enemyAttk = cardID.att;
             var cardIDID = "#" + characterList[0][this.id].number;
             $(cardIDID).hide();
@@ -137,9 +139,11 @@ $(".luke2").on("click", function() {
             cardImg.attr("src", cardID.img);
             characterCard.append(cardImg);
             var cardHp = $("<div>");
-            cardHp.text(cardID.hp);
-            characterCard.append(cardHp);
             yourHp = cardID.hp;
+            cardHp.text(yourHp);
+            cardHp.attr("id", "yourHpDisplay");
+            characterCard.append(cardHp);
+
             yourAttk = cardID.att;
             var cardIDID = "#" + characterList[0][this.id].number;
             $(cardIDID).hide();
@@ -157,6 +161,8 @@ $(".luke2").on("click", function() {
             console.log(yourAttk);
             $("#defender").text(yourHp);
             $("#enemies").text(enemyHp);
+            // $("#enemyHpDisplay").text(enemyHp);
+            // $("#yourHpDisplay").text(yourHp);
 
             if ((enemyHp === 0 ) && (cardsLeft === 0)) {
                 isEnemyClicked = false;
