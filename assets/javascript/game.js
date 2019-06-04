@@ -177,8 +177,8 @@ $(".luke2").on("click", function() {
             yourHp = yourHp - enemyAttk;
             yourAttk = yourAttk + 8;
             console.log(yourAttk);
-            // $("#defender").text(yourHp);
-            // $("#enemies").text(enemyHp);
+            $("#defender").text(yourHp);
+            $("#enemies").text(enemyHp);
             $("#enemyHpDisplay").text(enemyHp);
             $("#yourHpDisplay").text(yourHp);
 
@@ -218,26 +218,26 @@ $(".luke2").on("click", function() {
 
         }
 
-        
+        $("#enemyHpDisplay").text(enemyHp);   
         
 
  
 
-        if (enemyHp < 0) {
-            enemyHp = 0;
-            $("#enemies").text(enemyHp);
-            $(".maul").attr("class", "d-none");
-            isEnemyClicked = false;
-            console.log("you defeated the enemy");
-            enemyTicker--;
-            if (enemyTicker === 0) {
-                wins++;
-                $(".winsDisplay").text("Wins: " + wins);
-                alert("Congratulations, young padawan! You Won!");
-                // game();
-            }        
-        }
-        console.log(enemyHp);
+        // if (enemyHp < 0) {
+        //     enemyHp = 0;
+        //     $("#enemies").text(enemyHp);
+        //     $(".maul").attr("class", "d-none");
+        //     isEnemyClicked = false;
+        //     console.log("you defeated the enemy");
+        //     enemyTicker--;
+        //     if (enemyTicker === 0) {
+        //         wins++;
+        //         $(".winsDisplay").text("Wins: " + wins);
+        //         alert("Congratulations, young padawan! You Won!");
+        //         // game();
+        //     }        
+        // }
+        // console.log(enemyHp);
 
 
     });
