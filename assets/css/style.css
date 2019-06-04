@@ -1,0 +1,14 @@
+.players {
+    border: 1px, red;
+}
+
+img {
+    height: 100px;
+    width: 100px;
+}
+
+.luke {
+    background-color: black;
+    border-color: green;
+    border-width: 2px;
+}
