@@ -63,17 +63,13 @@ function game() {
 
     shuffle();
 
-// variable that stores wins/losses
     var wins = 0;
     var losses = 0;
-
-// variable that stores HP
     var cardsLeft = 4;
     var characterCard;
-
     var yourHp;
     var yourAttk;
-    var enemyHp;
+    var enemyHp = 0;
     var enemyAttk;
     var isEnemyClicked = false;
     var enemyTicker=3;
@@ -85,14 +81,15 @@ function game() {
 
 // collect a click from the card list
 
-$(".luke2").on("click", function() {
+    $(".luke2").on("click", function() {
 
-    // var chosenCard = this[0].name;
-    console.log(this.id);
-    console.log(characterList[0][this.id]);
 
-    var cardID = characterList[0][this.id];
-    characterCard = cardID;
+        console.log(this.id);
+        console.log(characterList[0][this.id]);
+
+        var cardID = characterList[0][this.id];
+        enemyHp = cardID;
+        characterCard = cardID;
 
 
  
@@ -126,19 +123,23 @@ $(".luke2").on("click", function() {
             $("#enemies").text(enemyHp);
 
             $(characterCard2).attr("class", "col-md-3 text-center luke4 maul bg-danger");
+
         } else {
     
             var characterCard3 = $("<button>");
             characterCard3.attr("class", "col-md-3 text-center luke3 obi");
             $("#arena1").append(characterCard3);
+
             var cardName3 = $("<div>");
             characterCard3.attr("class", "col-md-3 text-center luke4 obi");
             characterCard3.attr("id", cardID.number);
             cardName3.text(cardID.name);
             characterCard3.append(cardName3);
+
             var cardImg = $("<img>");
             cardImg.attr("src", cardID.img);
             characterCard3.append(cardImg);
+
             var cardHp = $("<div>");
             yourHp = cardID.hp;
             cardHp.text(yourHp);
@@ -152,31 +153,23 @@ $(".luke2").on("click", function() {
             $("#defender").text(yourHp);
             $(".luke").attr("class", "bg-danger");
             $(".luke2").attr("class", "bg-danger");
+        };
+    });
 
-
-
-        }
-
-
-});
     $("#buttonAttk").on("click", function() {
+
         if (yourHp < 0) {
             alert("you lost!");
             losses++;
             $(".lossesDisplay").text(losses);
             $(".obi").attr("class","d-none");
-            // game();
-
         } 
-
-
-
-
+ 
         if ((enemyHp !== 0) && (yourHp !== 0)) {
             enemyHp = enemyHp - yourAttk;
             yourHp = yourHp - enemyAttk;
             yourAttk = yourAttk + 8;
-            console.log(yourAttk);
+            console.log(enemyHp);
             $("#defender").text(yourHp);
             $("#enemies").text(enemyHp);
             $("#enemyHpDisplay").text(enemyHp);
@@ -187,10 +180,7 @@ $(".luke2").on("click", function() {
                 losses++;
                 $(".lossesDisplay").text(losses);
                 $(".obi").attr("class","d-none");
-                // game();
             }
-            // $("#enemyHpDisplay").text(enemyHp);
-            // $("#yourHpDisplay").text(yourHp);
 
             if ((enemyHp < 0 ) && (cardsLeft < 0)) {
                 isEnemyClicked = false;
@@ -208,45 +198,19 @@ $(".luke2").on("click", function() {
                 isEnemyClicked = false;
                 console.log("you defeated the enemy");
                 enemyTicker--;
+
                 if (enemyTicker === 0) {
                     wins++;
                     $(".winsDisplay").text("Wins: " + wins);
                     alert("Congratulations, young padawan! You Won!");
-                    // game();
                 } 
             }
-
         }
-
-        $("#enemyHpDisplay").text(enemyHp);   
-        
-
- 
-
-        // if (enemyHp < 0) {
-        //     enemyHp = 0;
-        //     $("#enemies").text(enemyHp);
-        //     $(".maul").attr("class", "d-none");
-        //     isEnemyClicked = false;
-        //     console.log("you defeated the enemy");
-        //     enemyTicker--;
-        //     if (enemyTicker === 0) {
-        //         wins++;
-        //         $(".winsDisplay").text("Wins: " + wins);
-        //         alert("Congratulations, young padawan! You Won!");
-        //         // game();
-        //     }        
-        // }
-        // console.log(enemyHp);
-
-
     });
 
     $("#reset").on("click", function() {
         window.location.reload();
     });
-
-
 }
 
 game();
