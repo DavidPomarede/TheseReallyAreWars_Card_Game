@@ -42,10 +42,10 @@ function game() {
         for(var i = 0; i < chars.length; i++) {
 
             card = $("<button>");
-            card.attr("class", "col-md-3 text-center luke");
+            card.attr("class", "col-md-2 text-center luke");
             $("#rowCardSlot").append(card);
             var cardName = $("<div>");
-            card.attr("class", "col-md-3 text-center luke2");
+            card.attr("class", "col-md-2 text-center luke2");
             card.attr("id", characterList[0][i].number)
             cardName.text(characterList[0][i].name);
             card.append(cardName);
@@ -94,11 +94,11 @@ function game() {
  
         if ((cardsLeft <= 3) && (!isEnemyClicked)){
             var characterCard2 = $("<button>");
-            characterCard2.attr("class", "col-md-3 text-center luke3 maul");
+            characterCard2.attr("class", "col-md-2 text-center luke3 maul");
             $("#arena2").append(characterCard2);
 
             var cardName2 = $("<div>");
-            characterCard2.attr("class", "col-md-3 text-center luke4 maul");
+            characterCard2.attr("class", "col-md-2 text-center luke4 maul");
             characterCard2.attr("id", cardID.number);
             cardName2.text(cardID.name);
             characterCard2.append(cardName2);
@@ -122,16 +122,16 @@ function game() {
             isEnemyClicked = true;
             $("#enemies").text(enemyHp);
 
-            $(characterCard2).attr("class", "col-md-3 text-center luke4 maul bg-danger");
+            $(characterCard2).attr("class", "col-md-2 text-center luke4 maul bg-danger");
 
         } else {
     
             var characterCard3 = $("<button>");
-            characterCard3.attr("class", "col-md-3 text-center luke3 obi");
+            characterCard3.attr("class", "col-md-2 text-center luke3 obi");
             $("#arena1").append(characterCard3);
 
             var cardName3 = $("<div>");
-            characterCard3.attr("class", "col-md-3 text-center luke4 obi");
+            characterCard3.attr("class", "col-md-2 text-center luke4 obi");
             characterCard3.attr("id", cardID.number);
             cardName3.text(cardID.name);
             characterCard3.append(cardName3);
