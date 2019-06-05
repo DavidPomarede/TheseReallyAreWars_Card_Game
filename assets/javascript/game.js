@@ -31,9 +31,8 @@ var characterList = [{
     }
 }]
 
-
 var chars = [1,2,3,4];
-console.log(characterList[0][0].name);
+var enemyHp = 0;
 
 function game() {
 
@@ -69,12 +68,12 @@ function game() {
     var characterCard;
     var yourHp;
     var yourAttk;
-    var enemyHp = 0;
+
     var enemyAttk;
     var isEnemyClicked = false;
     var enemyTicker=3;
 
-// variable that sotres enemyHP
+// variable that stores enemyHP
 
 // variable that stores increasing attack power
 // function that increases attack power with each attack
@@ -113,6 +112,7 @@ function game() {
             cardHp.text(enemyHp);
             characterCard2.append(cardHp);
             cardHp.attr("id", "enemyHpDisplay");
+            cardHp.attr("class", "sidious");
             enemyAttk = cardID.att;
 
             var cardIDID = "#" + characterList[0][this.id].number;
@@ -158,6 +158,9 @@ function game() {
 
     $("#buttonAttk").on("click", function() {
 
+        $("#enemyHpDisplay").text(enemyHp);
+        console.log("HP: " + enemyHp);
+
         if (yourHp < 0) {
             alert("you lost!");
             losses++;
@@ -194,7 +197,9 @@ function game() {
             if (enemyHp <= 0) {
                 enemyHp = 0;
                 $("#enemies").text(enemyHp);
-                $(".maul").attr("class", "d-none");
+                $(".maul").remove();
+                $(".maul").attr("class", "maul d-none");
+
                 isEnemyClicked = false;
                 console.log("you defeated the enemy");
                 enemyTicker--;
